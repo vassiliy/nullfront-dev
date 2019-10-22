@@ -1,0 +1,30 @@
+{
+  "name": "nullFront",
+  "version": "0.0.1",
+  "description": "Minimum assumptions frontend framework on pug-sass-es6-unobtrusive-jquery stack",
+  "repository": "https://bitbucket.org/greenmindsru",
+  "scripts": {
+    "start": "node ./node_modules/@greenminds/nf-dev-server/server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "run-s lint:*",
+    "lint:js": "eslint *.js",
+    "lint-fix": "run-s \"lint:* -- --fix\"",
+    "keep": "rm -rf ./node_modules/@greenminds && npm i",
+    "ci": "eslint gulpfile.js"
+  },
+  "keywords": [
+    "frontend",
+    "framework",
+    "pug",
+    "sass",
+    "es6",
+    "unobtrusive",
+    "jquery"
+  ],
+  "author": "Vassiliy Pimkin <vpimkin@greenminds.ru>",
+  "license": "ISC",
+  "dependencies": {
+    "@greenminds/nf-app-logic": "0.0.4",
+    "@greenminds/nf-dev-server": "0.0.1"
+  }
+}
