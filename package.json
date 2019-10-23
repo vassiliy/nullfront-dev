@@ -25,6 +25,6 @@
   "license": "ISC",
   "dependencies": {
     "@greenminds/nf-app-logic": "0.0.4",
-    "@greenminds/nf-dev-server": "0.0.1"
+    "@greenminds/nf-dev-server": "0.0.2"
   }
 }

@@ -8,6 +8,7 @@ const dataRoot = async () => require('@greenminds/nf-dev-server/gulp/dataRoot')(
 const dataRoutes = async () => require('@greenminds/nf-dev-server/gulp/dataRoutes')();
 const del = async () => require('@greenminds/nf-dev-server/gulp/del')();
 const endpoints = async () => require('@greenminds/nf-dev-server/gulp/endpoints')();
+const example = async () => require('@greenminds/nf-dev-server/gulp/example')();
 const favicon = async () => require('@greenminds/nf-dev-server/gulp/favicon')();
 const from = async () => require('@greenminds/nf-dev-server/gulp/from')();
 const go = async () => require('@greenminds/nf-dev-server/gulp/go')();
@@ -26,6 +27,7 @@ module.exports = {
   dataRoutes,
   del,
   endpoints,
+  example,
   favicon,
   from,
   go,

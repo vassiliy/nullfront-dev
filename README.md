@@ -9,7 +9,7 @@
 - Then you're good to `cd` into the project folder and `git init` there;
 
 ## Updating
-- Keep the project updated with `npm run keep`. Run it once a day before start working;
+- Keep the project updated by pulling this repo and `npm run keep` then;
 - Further awesomeness is totally up to you now.
 
 For instance, `gulp -p one` will run server for project whose markup is stored in `projects/one` folder.
@@ -18,16 +18,25 @@ For instance, `gulp -p one` will run server for project whose markup is stored i
 
 **Mistypes yield errors only.**
 
-**Example:** Create the project named `one`, cleanup `dist/` folder, launch project `one` browser-synced server:
+**Example blog project:** clone [nf-example-project](https://github.com/greenminds/nf-example-blog) into your project folder and learn the most advanced features available with `nullFront`.
+
+**Example project:** to learn just the basics, create the example project named, say, `one`, cleanup `dist/` folder, launch project `one` browser-synced server:
 ```bash
-gulp create -p one
+gulp example -p one
 gulp build -p one
 gulp -p one
 ```
 
+Example project is a basic tutorial filled with demo stuff you won't need in actual project. To start an actual project, use the blank one.
+
+**Blank project:** Create the blank project named `two` with
+```bash
+gulp create -p two
+```
+
 Run `gulp build` if you believe that the project distribution folder `dist` needs cleanup, otherwise just `gulp -p <project name>` does all the stuff and launches the project `dev` server with browser sync.
 
-The whole example project bundle is isolated in `example` folder, let's come to some important conventions on its structure.
+The whole example project bundle is isolated in `example` folder inside `nf-dev-server` package, let's come to some important conventions on its structure.
 
 ## Managing assets
 
@@ -69,7 +78,7 @@ is stored in `data/default/index`. Obvious drawback of this is that serving rout
 
 ## Site core data
 
-is stored in `data/_core/data`. It contains common information that is needed to be accessible through all the pages of site. The content of this file is added to every data page and **may be rewritten by a certain page data**.
+is stored in `data/_core/globals.js`. It contains common information that is needed to be accessible through all the pages of site. The content of this file is added to every data page and **may be rewritten by a certain page data**.
 
 ## Data generators
 
@@ -277,43 +286,51 @@ block content
 
 `NullFront` supports seamless back-end server integration via views endpoints. This implies some requirements on assets and links management. The problem is that assets are always served from front-end server, links are always served from back-end server. `NullFront dev server` has its front and back at the same host, but in the real work flow it is not that easy.
 
-`NullFront dev server` implements two main approaches to prefixing URLs of assets and links:
+All the pug templates have access to `asset` and `link` helpers, please always use it like this:
 
-- **without data** keys — in layout and views;
-- **with data** keys — in every data-supported endpoint rendered by content `pug` file or component.
-
-## No-data layouts and views prefixing
-
-Check the layout `pug/layouts/default.pug`. Every front-end-side served asset URL is prefixed by `${asset}`.
-
-Check the view `pug/views/default/index.pug`. Back-end-side served link URL is prefixed by `${link}`.
+```pug
+doctype html
+html(lang='en')
+  head
+    link(
+      rel='stylesheet',
+      href=asset('/css/styles.css')
+    )
+    script(src=asset('/js/index.js'))
+  body
+    nav(class='navbar navbar-inverse')
+      div(class='collapse navbar-collapse' id='myNavbar')
+        ul(class='nav navbar-nav')
+          li(class='active')
+            a(href=link('/home')) Home
+            a(href=link('/about')) About
+            a(href=link('/projects')) Projects
+            a(href=link('/contact')) Contact
+```
 
 **You should never add `asset` or `link` to pages data. They are always added and redefined by routing controller.**
 
-## Data-supported page-specific prefixing
+## Data helpers
 
-Check the data at `data/home`:
+There are data helpers also. Check the data at `data/home`:
 
 ```javascript
 const {asset, link} = require('@greenminds/nf-dev-server/server');
 
-const title = 'Home content page';
-const content = 'home';
-const view = 'default/content';
-
-const homePic = asset('/images/bone-wagon-square.jpg');
-const aboutLink = link('/about');
-
 module.exports = {
   '': {
-    content,
-    view,
+    content: 'home',
+    view: 'default/content',
   },
-  title,
-  homePic,
-  aboutLink,
+  title: 'Home content page',
+  homePic: asset('/images/bone-wagon-square.jpg'),
+  aboutLink: link('/about'),
 };
 ```
-Everything looks pretty self-explaining. Helpers for `asset` and `link` are packaged into `@greenminds/nf-dev-server`. Use them for your links and assets and export all that you need. Let's assume the topic of using these values in `pug` files covered.
+Everything looks pretty self-explaining. Helpers for `asset` and `link` are packaged into `@greenminds/nf-dev-server` for `api` level debugging in rare cases when views are somehow unavailable of inapplicable.
+
+**Don't use this on the real pages with complete functional views, `asset` and `link` natively belong to `pug` level.**
+
+## Conclusion
 
 **Keep calm. Run REPL vigorously. Enjoy. Feedback. Repeat.**
