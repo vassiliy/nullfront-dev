@@ -298,10 +298,10 @@ html(lang='en')
     )
     script(src=asset('/js/index.js'))
   body
-    nav(class='navbar navbar-inverse')
-      div(class='collapse navbar-collapse' id='myNavbar')
-        ul(class='nav navbar-nav')
-          li(class='active')
+    nav.navbar.navbar-inverse
+      #myNavbar.collapse.navbar-collapse
+        ul.nav.navbar-nav
+          li.active
             a(href=link('/home')) Home
             a(href=link('/about')) About
             a(href=link('/projects')) Projects
