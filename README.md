@@ -187,21 +187,21 @@ block content
 
 Then, somewhere in **file** `/pug/layouts/default.pug`:
 ```pug
-div(class='container-fluid text-center')    
-  div(class='row content')
-    div(class='col-sm-2 sidenav')
+.container-fluid.text-center
+  .row.content
+    .col-sm-2.sidenav
       p
         a(href='#') Link
       p
         a(href='#') Link
       p
         a(href='#') Link
-    div(class='col-sm-8 text-left')
+    .col-sm-8.text-left
       block content
-    div(class='col-sm-2 sidenav')
-      div(class='well')
+    .col-sm-2.sidenav
+      .well
         p ADS
-      div(class='well')
+      .well
         p ADS
 ```
 
